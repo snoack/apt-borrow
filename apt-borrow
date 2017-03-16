@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Copyright (C) 2017  Sebastian Noack <sebastian.noack@gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+set -eu
+
+auto=()
+
+for arg in "$@"; do
+  case $arg in
+    -h|--help)
+      echo "Usage: apt-borrow [options] pkg1 [pkg2 ...]"
+      echo
+      echo "apt-borrow installs the given packages but marks them as"
+      echo "automatically installed (unless they were already manually"
+      echo "installed), so that any new package is removed again with"
+      echo "apt-get autoremove. Other than that, apt-borrow follows the same"
+      echo "semantics and supports the same options as apt-get install."
+      exit 0
+      ;;
+    -*)
+      ;;
+    *)
+      if [ -z "`apt-mark showmanual "$arg"`" ]; then
+        auto+=("$arg")
+      fi
+      ;;
+  esac
+done
+
+apt-get install "$@"
+[ ${#auto[@]} -gt 0 ] && apt-mark auto "${auto[@]}"
