@@ -1,0 +1,13 @@
+Source: apt-borrow
+Maintainer: Sebastian Noack <sebastian.noack@gmail.com>
+Section: admin
+Priority: optional
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/snoack/apt-borrow
+
+Package: apt-borrow
+Architecture: all
+Depends: ${misc:Depends}, apt, bash
+Description: Utility to install Debian packages temporarily
+

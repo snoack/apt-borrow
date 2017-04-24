@@ -20,19 +20,10 @@ any other automatically installed package that isn't required anymore).
 Installation
 ------------
 
-In order to create a `deb` package and install it run following commands:
-
-```sh
-echo "Utility to install Debian packages temporarily" > description-pak
-checkinstall \
-  --pkgname=apt-borrow \
-  --pkgversion=`git describe` \
-  --pkglicense=GPL-3 \
-  --arch=all \
-  --nodoc \
-  --requires=apt,bash \
-  --default \
-  cp apt-borrow /usr/bin/
+```
+add-apt-repository ppa:s.noack/ppa
+apt-get update
+apt-get install apt-borrow
 ```
 
 Usage
